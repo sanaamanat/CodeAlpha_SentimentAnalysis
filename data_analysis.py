@@ -60,3 +60,35 @@ plt.ylabel("Number of Reviews")
 
 plt.savefig("images/sentiment_distribution.png")
 plt.show()
+
+# Calculate review length
+df["Review_Length"] = df["Review"].apply(len)
+
+print("\nReview Length:")
+print(df["Review_Length"].head())
+
+df["Review"].apply(len)
+
+print("\nReview Length Statistics:")
+print(df["Review_Length"].describe())
+
+plt.figure(figsize=(8, 5))
+
+plt.hist(df["Review_Length"], bins=30)
+
+plt.title("Distribution of Review Lengths")
+plt.xlabel("Review Length (Characters)")
+plt.ylabel("Number of Reviews")
+
+plt.savefig("images/review_length_distribution.png")
+plt.show()
+
+
+plt.figure(figsize=(8, 5))
+
+sns.boxplot(data=df, x="Sentiment", y="Review_Length")
+
+plt.title("Review Length by Sentiment")
+
+plt.savefig("images/review_length_boxplot.png")
+plt.show()
