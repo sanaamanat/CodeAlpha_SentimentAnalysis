@@ -450,9 +450,9 @@ print("\nPrediction:", result)
 import joblib
 
 # Save trained model
-joblib.dump(model, "sentiment_model.pkl")
+joblib.dump(model, "models/sentiment_model.pkl")
 
 # Save TF-IDF Vectorizer
-joblib.dump(vectorizer, "tfidf_vectorizer.pkl")
+joblib.dump(vectorizer, "models/tfidf_vectorizer.pkl")
 
 print("\nModel saved successfully!")

@@ -13,8 +13,8 @@ nltk.download("punkt_tab")
 nltk.download("stopwords")
 
 # Load model and vectorizer
-model = joblib.load("sentiment_model.pkl")
-vectorizer = joblib.load("tfidf_vectorizer.pkl")
+model = joblib.load("models/sentiment_model.pkl")
+vectorizer = joblib.load("models/tfidf_vectorizer.pkl")
 
 stop_words = set(stopwords.words("english"))
 stemmer = PorterStemmer()
