@@ -18,6 +18,9 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer
 
+from wordcloud import WordCloud
+
+
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
@@ -351,6 +354,69 @@ plt.savefig("images/confusion_matrix.png")
 
 plt.show()
 
+
+
+# ==========================
+# Separate Reviews
+# ==========================
+
+positive_reviews = " ".join(
+    df[df["Sentiment"] == "Positive"]["Clean_Review"]
+)
+
+negative_reviews = " ".join(
+    df[df["Sentiment"] == "Negative"]["Clean_Review"]
+)
+
+# ==========================
+# Positive Word Cloud
+# ==========================
+
+positive_cloud = WordCloud(
+    width=800,
+    height=400,
+    background_color="white"
+).generate(positive_reviews)
+
+plt.figure(figsize=(10,5))
+
+plt.imshow(positive_cloud, interpolation="bilinear")
+
+plt.axis("off")
+
+plt.title("Positive Review Word Cloud")
+
+plt.tight_layout()
+
+plt.savefig("images/positive_wordcloud.png")
+
+plt.show()
+
+
+# ==========================
+# Negative Word Cloud
+# ==========================
+
+negative_cloud = WordCloud(
+    width=800,
+    height=400,
+    background_color="black"
+).generate(negative_reviews)
+
+plt.figure(figsize=(10,5))
+
+plt.imshow(negative_cloud, interpolation="bilinear")
+
+plt.axis("off")
+
+plt.title("Negative Review Word Cloud")
+
+plt.tight_layout()
+
+plt.savefig("images/negative_wordcloud.png")
+
+plt.show()
+
 # ==========================
 # Predict New Review
 # ==========================
@@ -380,3 +446,13 @@ user_review = input("\nEnter your review:\n")
 result = predict_sentiment(user_review)
 
 print("\nPrediction:", result)
+
+import joblib
+
+# Save trained model
+joblib.dump(model, "sentiment_model.pkl")
+
+# Save TF-IDF Vectorizer
+joblib.dump(vectorizer, "tfidf_vectorizer.pkl")
+
+print("\nModel saved successfully!")
